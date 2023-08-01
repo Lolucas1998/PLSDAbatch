@@ -30,10 +30,12 @@
 #' @examples
 #' ## First example
 #' library(vegan) # for function varpart()
-#' data('AD_data')
-#' ad.clr <- AD_data$EgData$X.clr # centered log ratio transformed data
-#' ad.batch <- AD_data$EgData$Y.bat # batch information
-#' ad.trt <- AD_data$EgData$Y.trt # treatment information
+#' data('se_AD_Egdata')
+#' ad.clr <- assay(se_AD_Egdata) # centered log ratio transformed data
+#' ad.batch <- rowData(se_AD_Egdata)$Y.bat
+#' attr(ad.batch, "names") <- rowData(se_AD_Egdata)@rownames # batch information
+#' ad.trt <- rowData(se_AD_Egdata)$Y.trt 
+#' attr(ad.trt, "names") <- rowData(se_AD_Egdata)@rownames # treatment information
 #'
 #' ad.factors.df <- data.frame(trt = ad.trt, batch = ad.batch)
 #' rda.res <- varpart(ad.clr, ~ trt, ~ batch,
@@ -53,10 +55,19 @@
 #'
 #' ## Second example
 #' # a list of data corrected from different methods
-#' ad.corrected.list <- AD_data$CorrectData
+#' data('se_AD_data_beforebatch','se_AD_data_rmbatch','se_AD_data_combat',
+#' 'se_AD_data_plsdabatch','se_AD_data_splsdabatch',
+#' 'se_AD_data_PN','se_AD_data_RUVIII')
 #' ad.prop.df <- data.frame(Treatment = NA, Batch = NA,
 #'                          Intersection = NA,
 #'                          Residuals = NA)
+#' ad.corrected.list <- list(Before = assay(se_AD_data_beforebatch),
+#'                           removeBatchEffect = assay(se_AD_data_rmbatch),
+#'                           ComBat = assay(se_AD_data_combat),
+#'                          `PLSDA-batch` = assay(se_AD_data_plsdabatch),
+#'                          `sPLSDA-batch` = assay(se_AD_data_splsdabatch),
+#'                          `Percentile Normalisation` = assay(se_AD_data_PN),
+#'                           RUVIII = assay(se_AD_data_RUVIII))
 #' for(i in seq_len(length(ad.corrected.list))){
 #'   rda.res <- varpart(ad.corrected.list[[i]], ~ trt, ~ batch,
 #'                     data = ad.factors.df, scale = TRUE)
