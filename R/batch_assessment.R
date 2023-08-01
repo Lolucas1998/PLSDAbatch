@@ -30,12 +30,12 @@
 #' @examples
 #' ## First example
 #' library(vegan) # for function varpart()
-#' data('se_AD_Egdata')
-#' ad.clr <- assay(se_AD_Egdata) # centered log ratio transformed data
-#' ad.batch <- rowData(se_AD_Egdata)$Y.bat
-#' attr(ad.batch, "names") <- rowData(se_AD_Egdata)@rownames # batch information
-#' ad.trt <- rowData(se_AD_Egdata)$Y.trt 
-#' attr(ad.trt, "names") <- rowData(se_AD_Egdata)@rownames # treatment information
+#' data('AD_Egdata')
+#' ad.clr <- assay(AD_Egdata) # centered log ratio transformed data
+#' ad.batch <- rowData(AD_Egdata)$Y.bat
+#' attr(ad.batch, "names") <- rowData(AD_Egdata)@rownames # batch information
+#' ad.trt <- rowData(AD_Egdata)$Y.trt 
+#' attr(ad.trt, "names") <- rowData(AD_Egdata)@rownames # treatment information
 #'
 #' ad.factors.df <- data.frame(trt = ad.trt, batch = ad.batch)
 #' rda.res <- varpart(ad.clr, ~ trt, ~ batch,
@@ -54,20 +54,20 @@
 #' partVar_plot(prop.df = ad.prop.df)
 #'
 #' ## Second example
-#' # a list of data corrected from different methods
-#' data('se_AD_data_beforebatch','se_AD_data_rmbatch','se_AD_data_combat',
-#' 'se_AD_data_plsdabatch','se_AD_data_splsdabatch',
-#' 'se_AD_data_PN','se_AD_data_RUVIII')
+#' # data corrected from different methods
+#' data('AD_Egdata','AD_data_rmbatch','AD_data_combat',
+#' 'AD_data_plsdabatch','AD_data_splsdabatch',
+#' 'AD_data_PN','AD_data_RUVIII')
 #' ad.prop.df <- data.frame(Treatment = NA, Batch = NA,
 #'                          Intersection = NA,
 #'                          Residuals = NA)
-#' ad.corrected.list <- list(Before = assay(se_AD_data_beforebatch),
-#'                           removeBatchEffect = assay(se_AD_data_rmbatch),
-#'                           ComBat = assay(se_AD_data_combat),
-#'                          `PLSDA-batch` = assay(se_AD_data_plsdabatch),
-#'                          `sPLSDA-batch` = assay(se_AD_data_splsdabatch),
-#'                          `Percentile Normalisation` = assay(se_AD_data_PN),
-#'                           RUVIII = assay(se_AD_data_RUVIII))
+#' ad.corrected.list <- list(Before = assay(AD_Egdata),
+#'                           removeBatchEffect = assay(AD_data_rmbatch),
+#'                           ComBat = assay(AD_data_combat),
+#'                          `PLSDA-batch` = assay(AD_data_plsdabatch),
+#'                          `sPLSDA-batch` = assay(AD_data_splsdabatch),
+#'                          `Percentile Normalisation` = assay(AD_data_PN),
+#'                           RUVIII = assay(AD_data_RUVIII))
 #' for(i in seq_len(length(ad.corrected.list))){
 #'   rda.res <- varpart(ad.corrected.list[[i]], ~ trt, ~ batch,
 #'                     data = ad.factors.df, scale = TRUE)
@@ -85,54 +85,50 @@
 #'
 #'
 partVar_plot <- function(prop.df,
-                        text.cex = 3,
-                        x.angle = 60,
-                        x.hjust = 1,
-                        title = NULL,
-                        color.set = NULL){
-
-    Prop <- Methods <- Type <- ypos <- NULL
-    rda.ggplot <- data.frame(Prop = c(t(prop.df)),
-                            Methods = rep(rownames(prop.df),
-                                        each = ncol(prop.df)),
-                            Type = rep(colnames(prop.df), nrow(prop.df)))
-
-    rda.ggplot$Methods <- factor(rda.ggplot$Methods,
-    levels = rownames(prop.df))
-
-    rda.ggplot$Type <- factor(rda.ggplot$Type,
-    levels = rev(colnames(prop.df)))
-
-
-    rda.ggplot.position <- as.matrix(prop.df)
-    rda.ggplot.position[which(rda.ggplot.position <= 0.03)] <- 0.03
-
-    rda.ggplot.position <- t(apply(rda.ggplot.position, 1, cumsum))
-    rda.ggplot.position[,1] <- 0.06
-    rda.ggplot.position[,ncol(prop.df)] <- 1
-
-
-    rda.ggplot$ypos <- c(t(rda.ggplot.position))
-
-    # color set
-    if(is.null(color.set)){
-        color.set <- pb_color(11:20)
-    }else{
-        color.set <- color.set
-    }
-
-
-    ggplot(rda.ggplot, aes(x = Methods, y = Prop, fill = Type)) +
-        geom_bar(stat = 'identity') + ylab('Explained variance (%)') +
-        scale_fill_manual(name = 'Variation sources', values = color.set) +
-        theme_bw() + theme(axis.text.x = element_text(angle = x.angle,
-                                                    hjust = x.hjust)) +
-        geom_text(aes(y = ypos, label = round(Prop, digits = 3)),
-                    vjust = 1.6, color = 'black', size = text.cex) +
-        labs(title = title)
-
+                         text.cex = 3,
+                         x.angle = 60,
+                         x.hjust = 1,
+                         title = NULL,
+                         color.set = NULL){
+  
+  Prop <- Methods <- Type <- ypos <- NULL
+  rda.ggplot <- data.frame(Prop = c(t(prop.df)),
+                           Methods = rep(rownames(prop.df),
+                                         each = ncol(prop.df)),
+                           Type = rep(colnames(prop.df), nrow(prop.df)))
+  
+  rda.ggplot$Methods <- factor(rda.ggplot$Methods,
+                               levels = rownames(prop.df))
+  
+  rda.ggplot$Type <- factor(rda.ggplot$Type,
+                            levels = rev(colnames(prop.df)))
+  
+  
+  rda.ggplot.position <- as.matrix(prop.df)
+  rda.ggplot.position[which(rda.ggplot.position <= 0.03)] <- 0.03
+  
+  rda.ggplot.position <- t(apply(rda.ggplot.position, 1, cumsum))
+  rda.ggplot.position[,1] <- 0.06
+  rda.ggplot.position[,ncol(prop.df)] <- 1
+  
+  
+  rda.ggplot$ypos <- c(t(rda.ggplot.position))
+  
+  # color set
+  if(is.null(color.set)){
+    color.set <- pb_color(11:20)
+  }else{
+    color.set <- color.set
+  }
+  
+  
+  ggplot(rda.ggplot, aes(x = Methods, y = Prop, fill = Type)) +
+    geom_bar(stat = 'identity') + ylab('Explained variance (%)') +
+    scale_fill_manual(name = 'Variation sources', values = color.set) +
+    theme_bw() + theme(axis.text.x = element_text(angle = x.angle,
+                                                  hjust = x.hjust)) +
+    geom_text(aes(y = ypos, label = round(Prop, digits = 3)),
+              vjust = 1.6, color = 'black', size = text.cex) +
+    labs(title = title)
+  
 }
-
-
-
-
