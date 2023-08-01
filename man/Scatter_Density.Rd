@@ -60,13 +60,13 @@ principal component.
 \examples{
 # The first example
 library(mixOmics) # for function pca()
-data('se_AD_Egdata')
-ad.clr <- assay(se_AD_Egdata) # centered log ratio transformed data
+data('AD_Egdata')
+ad.clr <- assay(AD_Egdata) # centered log ratio transformed data
 ad.pca.before <- pca(ad.clr, ncomp = 3, scale = TRUE)
-ad.batch <- rowData(se_AD_Egdata)$Y.bat
-attr(ad.batch, "names") <- rowData(se_AD_Egdata)@rownames # batch information
-ad.trt <- rowData(se_AD_Egdata)$Y.trt
-attr(ad.trt, "names") <- rowData(se_AD_Egdata)@rownames # treatment information
+ad.batch <- rowData(AD_Egdata)$Y.bat
+attr(ad.batch, "names") <- rowData(AD_Egdata)@rownames # batch information
+ad.trt <- rowData(AD_Egdata)$Y.trt
+attr(ad.trt, "names") <- rowData(AD_Egdata)@rownames # treatment information
 Scatter_Density(object = ad.pca.before, batch = ad.batch, trt = ad.trt)
 
 # The second example

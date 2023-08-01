@@ -1,6 +1,6 @@
 test_that("checking PreFL", {
-  data('se_AD_Fulldata')
-  ad.count <- assay(se_AD_Fulldata) # microbial count data
+  data('AD_Fulldata')
+  ad.count <- assay(AD_Fulldata) # microbial count data
 
   ad.filter.res <- PreFL(data = ad.count)
 

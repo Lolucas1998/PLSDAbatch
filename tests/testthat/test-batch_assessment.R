@@ -1,11 +1,11 @@
 test_that("checking partVar_plot", {
 library(vegan)
-  data('se_AD_Egdata')
-  ad.clr <- assay(se_AD_Egdata)
-  ad.batch <- rowData(se_AD_Egdata)$Y.bat
-  attr(ad.batch, "names") <- rowData(se_AD_Egdata)@rownames
-  ad.trt <- rowData(se_AD_Egdata)$Y.trt
-  attr(ad.trt, "names") <- rowData(se_AD_Egdata)@rownames
+  data('AD_Egdata')
+  ad.clr <- assay(AD_Egdata)
+  ad.batch <- rowData(AD_Egdata)$Y.bat
+  attr(ad.batch, "names") <- rowData(AD_Egdata)@rownames
+  ad.trt <- rowData(AD_Egdata)$Y.trt
+  attr(ad.trt, "names") <- rowData(AD_Egdata)@rownames
 
   ad.factors.df <- data.frame(trt = ad.trt, batch = ad.batch)
   rda.res <- varpart(ad.clr, ~ trt, ~ batch,

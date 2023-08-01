@@ -81,12 +81,12 @@ batch effects. It can help to decide whether it is better to include
 batch effects.
 }
 \examples{
-data('se_AD_Egdata')
-ad.clr <- assay(se_AD_Egdata) # centered log ratio transformed data
-ad.batch <- rowData(se_AD_Egdata)$Y.bat
-attr(ad.batch, "names") <- rowData(se_AD_Egdata)@rownames # batch information
-ad.trt <- rowData(se_AD_Egdata)$Y.trt
-attr(ad.trt, "names") <- rowData(se_AD_Egdata)@rownames # treatment information
+data('AD_Egdata')
+ad.clr <- assay(AD_Egdata) # centered log ratio transformed data
+ad.batch <- rowData(AD_Egdata)$Y.bat
+attr(ad.batch, "names") <- rowData(AD_Egdata)@rownames # batch information
+ad.trt <- rowData(AD_Egdata)$Y.trt
+attr(ad.trt, "names") <- rowData(AD_Egdata)@rownames # treatment information
 ad.lm <- linear_regres(data = ad.clr, trt = ad.trt,
                        batch.fix = ad.batch,
                        type = 'linear model')

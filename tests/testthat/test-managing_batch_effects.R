@@ -1,10 +1,10 @@
 test_that("checking linear_regres", {
-  data('se_AD_Egdata')
-  ad.clr <- assay(se_AD_Egdata)
-  ad.batch <- rowData(se_AD_Egdata)$Y.bat
-  attr(ad.batch, "names") <- rowData(se_AD_Egdata)@rownames
-  ad.trt <- rowData(se_AD_Egdata)$Y.trt
-  attr(ad.trt, "names") <- rowData(se_AD_Egdata)@rownames
+  data('AD_Egdata')
+  ad.clr <- assay(AD_Egdata)
+  ad.batch <- rowData(AD_Egdata)$Y.bat
+  attr(ad.batch, "names") <- rowData(AD_Egdata)@rownames
+  ad.trt <- rowData(AD_Egdata)$Y.trt
+  attr(ad.trt, "names") <- rowData(AD_Egdata)@rownames
   ad.lm <- linear_regres(data = ad.clr, trt = ad.trt,
                          batch.fix = ad.batch,
                          type = 'linear model')
@@ -25,12 +25,12 @@ test_that("checking linear_regres", {
 
 
 test_that("checking percentile_norm", {
-  data('se_AD_Egdata')
-  ad.clr <- assay(se_AD_Egdata)
-  ad.batch <- rowData(se_AD_Egdata)$Y.bat
-  attr(ad.batch, "names") <- rowData(se_AD_Egdata)@rownames
-  ad.trt <- rowData(se_AD_Egdata)$Y.trt
-  attr(ad.trt, "names") <- rowData(se_AD_Egdata)@rownames
+  data('AD_Egdata')
+  ad.clr <- assay(AD_Egdata)
+  ad.batch <- rowData(AD_Egdata)$Y.bat
+  attr(ad.batch, "names") <- rowData(AD_Egdata)@rownames
+  ad.trt <- rowData(AD_Egdata)$Y.trt
+  attr(ad.trt, "names") <- rowData(AD_Egdata)@rownames
   ad.PN <- percentile_norm(data = ad.clr, batch = ad.batch,
                           trt = ad.trt, ctrl.grp = '0-0.5')
 
