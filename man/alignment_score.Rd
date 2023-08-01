@@ -42,9 +42,10 @@ in the batch corrected data. It is based on the dissimilarity matrix from
 Principal Component Analysis.
 }
 \examples{
-data('sponge_data')
-X <- sponge_data$X.clr # centered log ratio transformed data
-batch <- sponge_data$Y.bat # batch information
+data('se_sponge_data')
+X <- logratio.transfo(X = assay(se_sponge_data), logratio = 'CLR', offset = 0.01) # centered log ratio transformed data
+batch <- rowData(se_sponge_data)$Y.bat
+attr(batch, "names") <- rowData(se_sponge_data)@rownames # batch information
 
 alignment_score(data = X, batch = batch, var = 0.95, k = 3, ncomp = 20)
 
