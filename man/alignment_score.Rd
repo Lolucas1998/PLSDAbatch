@@ -5,11 +5,11 @@
 \title{Alignment Scores for Evaluating the Degree of Mixing Samples}
 \usage{
 alignment_score(
-    data,
-    batch,
-    var = 0.95,
-    k = round(0.1 * nrow(data)),
-    ncomp = 20
+  data,
+  batch,
+  var = 0.95,
+  k = round(0.1 * nrow(data)),
+  ncomp = 20
 )
 }
 \arguments{

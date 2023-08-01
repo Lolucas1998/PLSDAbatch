@@ -5,19 +5,19 @@
 \title{Principal Component Analysis (PCA) with Density Plots per Component}
 \usage{
 Scatter_Density(
-    object,
-    batch = NULL,
-    trt = NULL,
-    xlim = NULL,
-    ylim = NULL,
-    color.set = NULL,
-    batch.legend.title = "Batch",
-    trt.legend.title = "Treatment",
-    density.lwd = 0.2,
-    title = NULL,
-    title.cex = 1.5,
-    legend.cex = 0.7,
-    legend.title.cex = 0.75
+  object,
+  batch = NULL,
+  trt = NULL,
+  xlim = NULL,
+  ylim = NULL,
+  color.set = NULL,
+  batch.legend.title = "Batch",
+  trt.legend.title = "Treatment",
+  density.lwd = 0.2,
+  title = NULL,
+  title.cex = 1.5,
+  legend.cex = 0.7,
+  legend.title.cex = 0.75
 )
 }
 \arguments{

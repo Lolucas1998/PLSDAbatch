@@ -5,13 +5,13 @@
 \title{Linear Regression}
 \usage{
 linear_regres(
-    data,
-    trt,
-    batch.fix = NULL,
-    batch.fix2 = NULL,
-    batch.random = NULL,
-    type = "linear model",
-    p.adjust.method = "fdr"
+  data,
+  trt,
+  batch.fix = NULL,
+  batch.fix2 = NULL,
+  batch.random = NULL,
+  type = "linear model",
+  p.adjust.method = "fdr"
 )
 }
 \arguments{
@@ -86,8 +86,8 @@ ad.clr <- AD_data$EgData$X.clr # centered log ratio transformed data
 ad.batch <- AD_data$EgData$Y.bat # batch information
 ad.trt <- AD_data$EgData$Y.trt # treatment information
 ad.lm <- linear_regres(data = ad.clr, trt = ad.trt,
-                        batch.fix = ad.batch,
-                        type = 'linear model')
+                       batch.fix = ad.batch,
+                       type = 'linear model')
 ad.p.adj <- ad.lm$adj.p
 head(ad.lm$AIC)
 

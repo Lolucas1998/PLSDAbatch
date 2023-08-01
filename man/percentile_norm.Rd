@@ -36,7 +36,7 @@ ad.clr <- AD_data$EgData$X.clr # centered log ratio transformed data
 ad.batch <- AD_data$EgData$Y.bat # batch information
 ad.trt <- AD_data$EgData$Y.trt # treatment information
 ad.PN <- percentile_norm(data = ad.clr, batch = ad.batch,
-                            trt = ad.trt, ctrl.grp = '0-0.5')
+                         trt = ad.trt, ctrl.grp = '0-0.5')
 
 }
 \references{
