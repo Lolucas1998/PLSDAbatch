@@ -24,8 +24,8 @@
 #' @export
 #'
 #' @examples
-#' data('AD_data')
-#' ad.count <- AD_data$FullData$X.count # microbial count data
+#' data('se_AD_Fulldata')
+#' ad.count <- assay(se_AD_Fulldata) # microbial count data
 #' ad.filter.res <- PreFL(data = ad.count)
 #'
 #' # The proportion of zeroes of the AD count data
